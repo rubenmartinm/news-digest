@@ -1,9 +1,15 @@
 news-digest
 ===========
 
-* Script para recibir por correo electronico nuevos números de publicaciones en PDF, enlaces de noticias de sitios sin RSS, etc. *
+*Script para recibir por correo electronico nuevos números de publicaciones en PDF, enlaces de noticias de sitios sin RSS, etc.*
 
-## Configuracion de fuentes:
+**Introducción**
+
+¿has visto alguna vez una publicación de una revista o dossier en PDF que te interesa y no puedes suscribirte por RSS?
+
+La motivación de hacer este *script* nace de esa necesidad. Hay varios sitios en internet que te dan la posibilidad de crear feeds RSS como [Feed43.com](http://feed43.com/).
+
+## Configuracion de fuentes
 
     Archivo de definicion de los origenes de datos y localizadores
     Parametros:
