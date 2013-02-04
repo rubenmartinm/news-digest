@@ -41,9 +41,9 @@ Los parámetros necesarios son los siguientes:
     fuente            : nombre identificador de la fuente
     url               : url del html
 
-La ´fuente´ es el nombre identificador que aparecerá como título seguido de sus enlaces (si ha habido cambios en la fuente al generar el correo), p.e.: *revista bit*
+La ´fuente´ es el nombre identificador que aparecerá como título seguido de sus enlaces (si ha habido cambios en la fuente al generar el correo), p.e.: *web de revista*
 
-La 'url' es la dirección de la página p.e. *http://www.coit.es/ArchivoBIT/servlet/coitHemeroteca*
+La 'url' es la dirección de la página p.e. *http://url.a.mirevista.es/ArchivoRevista/Hemeroteca*
 
     sw_rama           : 1 = buscar desde rama, 0 = buscar en todo el html
     
