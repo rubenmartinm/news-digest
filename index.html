@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="News-digest : Script para recibir por correo electrónico nuevos números de publicaciones en PDF, enlaces de noticias de sitios sin RSS, etc." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>News-digest</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/rubenmartinm/news-digest">View on GitHub</a>
+
+          <h1 id="project_title">News-digest</h1>
+          <h2 id="project_tagline">Script para recibir por correo electrónico nuevos números de publicaciones en PDF, enlaces de noticias de sitios sin RSS, etc.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/rubenmartinm/news-digest/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/rubenmartinm/news-digest/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>news-digest</h1>
+
+<p><em>Script para recibir por correo electronico nuevos números de publicaciones en PDF, enlaces de noticias de sitios sin feed RSS, etc.</em></p>
+
+<p><strong>Introducción</strong></p>
+
+<p>¿Has visto alguna vez una publicación mensual de una revista o dossier en PDF que te interesa y no puedes suscribirte por RSS?
+¿Alguna web con artículos sin feed RSS?</p>
+
+<p>O simplemente, quieres recibir ciertos contenidos en un correo de toda la vida para leerlos tranquilamente.</p>
+
+<p>La motivación de hacer este <em>script</em> nace de esa necesidad.</p>
+
+<p>A grandes rasgos, se trata de disponer de un equipo con conexión continua a internet (EC2 de Amazon, Raspberry Pi, DD-WRT, Tomato, SnakeOS, etc.) con un pequeño <em>script</em> que nos envíe un resumen diario o semanal con los cambios en ciertas páginas.</p>
+
+<p><strong>Alternativas</strong></p>
+
+<p>Existen varios sitios en internet que pueden dar un servicio análogo pero un <em>script</em> personalizado siempre se ajusta mas a nuestro gusto. Algunos ejemplos son:</p>
+
+<ul>
+<li><a href="http://feed43.com/">feed43.com</a></li>
+<li><a href="http://www.specificfeeds.com/">specificfeeds.com</a></li>
+<li><a href="http://ifttt.com">ifttt.com</a></li>
+<li><a href="http://blogtrottr.com/">blogtrottr.com</a></li>
+<li>
+<a href="http://www.feedmyinbox.com/">feedmyinbox.com</a> - <em>descontinuado</em>
+</li>
+</ul><p>Si no encuentras nada que te guste siempre puedes empezar a usar <code>news-digest</code> ;-)</p>
+
+<h2>Instalación</h2>
+
+<pre><code>$ git clone https://github.com/rubenmartinm/news-digest.git
+</code></pre>
+
+<h2>Configuracion</h2>
+
+<p><strong>Configuración de las fuentes de datos</strong></p>
+
+<p>Abrimos <code>contenidos.txt</code> con nuestro editor habitual para añadir/modificar nuestras fuentes. Cada fuente esta definida en una línea del archivo en formato CSV.</p>
+
+<p>Los parámetros necesarios son los siguientes:</p>
+
+<pre><code>fuente            : nombre identificador de la fuente
+url               : url del html
+</code></pre>
+
+<p>La ´fuente´ es el nombre identificador que aparecerá como título seguido de sus enlaces (si ha habido cambios en la fuente al generar el correo), p.e.: <em>revista bit</em></p>
+
+<p>La 'url' es la dirección de la página p.e. <em><a href="http://www.coit.es/ArchivoBIT/servlet/coitHemeroteca">http://www.coit.es/ArchivoBIT/servlet/coitHemeroteca</a></em></p>
+
+<pre><code>sw_rama           : 1 = buscar desde rama, 0 = buscar en todo el html
+
+etiqueta_rama     : tag para buscar la rama a partir de la cual buscar
+atributo_rama     : atributo para filtrar = title, class, etc
+valor_rama        : cadena a buscar
+</code></pre>
+
+<p>Este bloque de parametros marca si necesitamos circunscribir la búsqueda a una rama concreta dentro del <em>html</em>.</p>
+
+<p>El valor de 'sw_rama' definirá esta opción.</p>
+
+<p>Si 'sw_rama' es '1':</p>
+
+<p>La 'etiqueta_rama' es el tag de la rama raiz, 'atributo_rama' es el atributo y 'valor_rama' el valor a buscar p.e. div;class;columna_principal -&gt; &lt; div class="columna_principal" &gt;</p>
+
+<p>Para encontrar los valores adecuados es recomendable usar el <a href="https://addons.mozilla.org/en-US/firefox/addon/firebug/">Firebug</a> para Firefox o en Chrome Menu -&gt; Tools -&gt; Developer Tools.</p>
+
+<pre><code>etiqueta_elemento : tag html a buscar para los enlaces
+atributo_elemento : atributo para filtrar = title, class, etc
+valor_elemento    : cadena a buscar
+</code></pre>
+
+<p>Idem que para la rama pero esta vez para los enlaces concretos a las noticias.</p>
+
+<pre><code>no_deseados       : cadena expresion regular no deseados
+lineas_a_truncar  : cualquier linea antes del &lt;html&gt; que hace fallar el script
+</code></pre>
+
+<p>Por último dos parámetros adicionales que me han resultado necesarios:</p>
+
+<p>'no_deseados' es una cadena para descartar enlaces no deseados mediante una expresion regular.</p>
+
+<p>'lineas_a_truncar' es un contador de líneas a descartar antes de &lt; html &gt; que en alguna página es necesario :-?</p>
+
+<p><strong>Configuración necesaria para el envío de correo electrónico</strong></p>
+
+<pre><code># Envio de correo por smtp.google.com
+gmail_user = "USUARIO_GMAIL"
+gmail_pwd = "PASSWORD_GMAIL"
+
+# Correo destinatario
+mail_to = "CORREO"
+</code></pre>
+
+<p><strong>Configuración adicional para la ejecución desde un cron (opcional)</strong></p>
+
+<pre><code># Para la ejecucion del script desde un cron
+ruta = "RUTA COMPLETA"
+</code></pre>
+
+<h2>Dependencias</h2>
+
+<ul>
+<li><a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a></li>
+<li>urllib2</li>
+<li>smtplib</li>
+<li>MIMEMultipart</li>
+<li>MIMEText</li>
+<li>defaultdict</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">News-digest maintained by <a href="https://github.com/rubenmartinm">rubenmartinm</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
