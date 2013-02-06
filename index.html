@@ -60,7 +60,18 @@
 </li>
 </ul><p>Si no encuentras nada que te guste siempre puedes empezar a usar <code>news-digest</code> ;-)</p>
 
-<h2>Instalación</h2>
+<p><strong>Fuentes de publicaciones</strong></p>
+
+<p>Principalmente hay tres tipos de fuentes:</p>
+
+<ul>
+<li>Definidas por el usuario mediante el archivo CSV <code>contenidos.txt</code>
+</li>
+<li>Fuentes con URLs especiales autogeneradas. P.e.: <code>http://es.globalvoicesonline.org/AÑO/MES/DIA</code>
+</li>
+<li>Fuentes adicionales incluidas a fuego en el <em>script</em>: Actualmente <code>Wikiquote aleatoria</code> y <code>Wikipedia aleatoria</code>
+</li>
+</ul><h2>Instalación</h2>
 
 <pre><code>$ git clone https://github.com/rubenmartinm/news-digest.git
 </code></pre>
@@ -117,6 +128,8 @@ lineas_a_truncar  : cualquier linea antes del &lt;html&gt; que hace fallar el sc
 
 <p><strong>Configuración necesaria para el envío de correo electrónico</strong></p>
 
+<p>Abrimos <code>news-digest.py</code> con nuestro editor habitual para modificar nuestra configuración de envío del mail, en mi caso el elegido es el SMTP de Gmail.</p>
+
 <pre><code># Envio de correo por smtp.google.com
 gmail_user = "USUARIO_GMAIL"
 gmail_pwd = "PASSWORD_GMAIL"
@@ -126,6 +139,8 @@ mail_to = "CORREO"
 </code></pre>
 
 <p><strong>Configuración adicional para la ejecución desde un cron (opcional)</strong></p>
+
+<p>Simplemente para que las referencias a los archivos tengan las rutas completas.</p>
 
 <pre><code># Para la ejecucion del script desde un cron
 ruta = "RUTA COMPLETA"
