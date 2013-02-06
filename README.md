@@ -26,6 +26,14 @@ Existen varios sitios en internet que pueden dar un servicio análogo pero un *s
 
 Si no encuentras nada que te guste siempre puedes empezar a usar `news-digest` ;-)
 
+**Fuentes de publicaciones**
+
+Principalmente hay tres tipos de fuentes:
+
+- Definidas por el usuario mediante el archivo CSV `contenidos.txt`
+- Fuentes con URLs especiales autogeneradas. P.e.: `http://es.globalvoicesonline.org/AÑO/MES/DIA`
+- Fuentes adicionales incluidas a fuego en el *script*: Actualmente `Wikiquote aleatoria` y `Wikipedia aleatoria`
+
 ## Instalación
 
     $ git clone https://github.com/rubenmartinm/news-digest.git
@@ -78,6 +86,8 @@ Por último dos parámetros adicionales que me han resultado necesarios:
 
 **Configuración necesaria para el envío de correo electrónico**
 
+Abrimos `news-digest.py` con nuestro editor habitual para modificar nuestra configuración de envío del mail, en mi caso el elegido es el SMTP de Gmail.
+
     # Envio de correo por smtp.google.com
     gmail_user = "USUARIO_GMAIL"
     gmail_pwd = "PASSWORD_GMAIL"
@@ -86,6 +96,8 @@ Por último dos parámetros adicionales que me han resultado necesarios:
     mail_to = "CORREO"
 
 **Configuración adicional para la ejecución desde un cron (opcional)**
+
+Simplemente para que las referencias a los archivos tengan las rutas completas.
 
     # Para la ejecucion del script desde un cron
     ruta = "RUTA COMPLETA"
