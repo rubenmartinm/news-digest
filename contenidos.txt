@@ -10,11 +10,16 @@
 # etiqueta_elemento : tag html a buscar para los enlaces
 # atributo_elemento : atributo para filtrar = title, class, etc
 # valor_elemento    : cadena a buscar
-# no_deseados       : cadena expresion regular no deseados. ZZZ por defecto para aceptar todo
+# no_deseados       : cadena expresion regular no deseados
 # lineas_a_truncar  : cualquier linea antes del <html> que hace fallar el script
 #
-# fuente;url;sw_rama;etiqueta_rama;atributo_rama;valor_rama;etiqueta_elemento;atributo_elemento;valor_elemento;no_deseados;lineas_a_truncar
+# fuente;url;sw_rama;etiqueta_rama;atributo_rama;valor_rama;etiqueta_elemento;atributo_elemento;valor_elemento;;no_deseados;lineas_a_truncar
 thinkingheads;http://www.thinkingheads.com/articulos;0;e;a;v;a;target;_blank;ZZZ;0
 revista bit;http://www.coit.es/ArchivoBIT/servlet/coitHemeroteca;0;e;a;v;a;class;AHemerotitulo;ZZZ;2
 editoriales elpais;http://elpais.com/tag/c/aac32d0cdce5eeb99b187a446e57a9f7;1;div;class;columna_principal;a;title;Ver noticia;ZZZ;0
-editoriales elmundo;http://www.elmundo.es/elmundo/opinion.html;1;div;class;modulo modulo_noticias_01 ;a;title;;ZZZ;0
+#editoriales elmundo;http://www.elmundo.es/elmundo/opinion.html;1;ul;id;listado_blogs;a;href;;ZZZ;0
+circulodeempresarios;http://www.circulodeempresarios.org/es/publicaciones/publicaciones;1;div;class;region region-content;a;href;;(^\d?$|^siguiente|ltima );0
+realinstitutoelcano;http://www.realinstitutoelcano.org/wps/portal;1;div;class;wpsPortletBody;a;class;titulo_analisis;^$;0
+fride;http://www.fride.org/publicaciones;1;div;class;col2 caja-blanca;a;href;^\/publicacion.*;(Policy Brief|Documento de trabajo|Libro|Otras publicaciones);0
+enisa;http://www.enisa.europa.eu/publications;1;div;class;faceted-results;a;class;summary url;ZZZ;0
+europa.eu;http://europa.eu/rapid/search-result.htm?dateRange=30d&keywords=INTERNET&page=1&keywordMatch=any&format=HTML&size=10&locale=EN;1;table;class;displaytag;a;href;;(^$|^..$);0
