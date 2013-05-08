@@ -10,10 +10,10 @@
 # etiqueta_elemento : tag html a buscar para los enlaces
 # atributo_elemento : atributo para filtrar = title, class, etc
 # valor_elemento    : cadena a buscar
-# no_deseados       : cadena expresion regular no deseados
+# no_deseados       : cadena expresion regular no deseados. ZZZ por defecto para aceptar todo
 # lineas_a_truncar  : cualquier linea antes del <html> que hace fallar el script
 #
-# fuente;url;sw_rama;etiqueta_rama;atributo_rama;valor_rama;etiqueta_elemento;atributo_elemento;valor_elemento;;no_deseados;lineas_a_truncar
+# fuente;url;sw_rama;etiqueta_rama;atributo_rama;valor_rama;etiqueta_elemento;atributo_elemento;valor_elemento;no_deseados;lineas_a_truncar
 thinkingheads;http://www.thinkingheads.com/articulos;0;e;a;v;a;target;_blank;ZZZ;0
 revista bit;http://www.coit.es/ArchivoBIT/servlet/coitHemeroteca;0;e;a;v;a;class;AHemerotitulo;ZZZ;2
 editoriales elpais;http://elpais.com/tag/c/aac32d0cdce5eeb99b187a446e57a9f7;1;div;class;columna_principal;a;title;Ver noticia;ZZZ;0
