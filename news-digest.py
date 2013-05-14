@@ -38,7 +38,7 @@ arch_ultimos = ruta+"ultimos.txt"
 dias = { 'Monday': 'Lunes', 'Tuesday': 'Martes', 'Wednesday': 'Miercoles', 'Thursday': 'Jueves', 'Friday': 'Viernes', 'Saturday': 'Sabado', 'Sunday': 'Domingo' }
 
 invalid_tags = ['b', 'i', 'em']
-
+ 
 #####
 # Url
 #####
@@ -64,8 +64,8 @@ lista_fuentes_especiales = [ { "fuente": "global voices EN",
                                "atributo_elemento": "rel",
                                "valor_elemento": "bookmark",
                                "no_deseados": "read",
-                               "lineas_a_truncar": "0"
-                             },
+                               "lineas_a_truncar": "0" 
+                             }, 
                             { "fuente": "global voices ES",
                                "url": "http://es.globalvoicesonline.org/"+yesterday.strftime("%Y/%m/%d/"),
                                "sw_rama": "1",
@@ -97,12 +97,12 @@ def get_sources():
 
     for item in lista_archivo:
         item = item.rstrip()
-        if ( item.startswith("#") == 0 ):
+	if ( item.startswith("#") == 0 ):
             lista_fuente = item.split(";")
-
-            lista_fuentes.append( {"fuente": lista_fuente[0],
-                                   "url": lista_fuente[1],
-                                   "sw_rama": lista_fuente[2],
+        
+            lista_fuentes.append( {"fuente": lista_fuente[0], 
+                                   "url": lista_fuente[1], 
+                                   "sw_rama": lista_fuente[2], 
                                    "etiqueta_rama": lista_fuente[3],
                                    "atributo_rama": lista_fuente[4],
                                    "valor_rama": lista_fuente[5],
@@ -142,7 +142,7 @@ def get_ultimos():
     for item in lista_archivo:
         item = item.rstrip()
         if ( item.startswith("#") == 0 ):
-            lista_ultimo = item.split(";")
+            lista_ultimo = item.split("%_%")
 
             #fuente;titulo
             lista_ultimos[lista_ultimo[0]] = lista_ultimo[1]
@@ -156,12 +156,12 @@ def get_ultimos():
 def set_ultimos(lista_texto):
     f = open(arch_ultimos, 'w')
 
-    f.write("#fuente;titulo\n")
+    f.write("#fuente%_%titulo\n")
 
     for item in lista_texto:
         for key in item:
-           #print key+";"+item[key]
-           f.write(key+";"+item[key]+"\n")
+           #print key+"%_%"+item[key]
+           f.write(key+"%_%"+item[key]+"\n")
     f.close()
 
 ###################################################################################################
@@ -221,7 +221,7 @@ def get_stories(lf):
         print web_fuente+"..."
 
         content = get_page(web_url)
-
+        
         content_list = content.split('\n')
 
         # para depurar htmls que tengan lineas al principio de basura
@@ -254,6 +254,7 @@ def get_stories(lf):
                 etiqueta_texto = etiqueta.string
 
             etiqueta_texto = etiqueta_texto.lstrip()
+            etiqueta_texto = etiqueta_texto.rstrip()
 
             # Para quitar los textos no deseados
             if re.search(web_no_deseados, etiqueta_texto):
@@ -283,12 +284,10 @@ def get_stories(lf):
             # Incluir en historico el primer enlace para no repetir noticias en futuros correos
             if sw_primero == 0:
                 sw_primero = 1
-                #lista_primeros.append( {web_fuente: etiqueta_texto.encode('latin-1') } )
                 lista_primeros.append( {web_fuente: etiqueta_texto.encode('utf-8') } )
-
+            
             # comprobar si esta repetido
             if web_fuente in lista_ultimos:
-                #if etiqueta_texto.encode('latin-1') == lista_ultimos[web_fuente]:
                 if etiqueta_texto.encode('utf-8') == lista_ultimos[web_fuente]:
                     sw_ultimo = 1
 
@@ -298,15 +297,12 @@ def get_stories(lf):
                 # Para coger la extension
                 lista_url_href = url_href.group(1).split(".")
                 extension_url = lista_url_href[-1].upper()
-
+                
                 if extension_url=="HTML":
-                    #titulos[web_fuente+" - <a href='"+web_url+"'>e</a>"].append( { "titulo": etiqueta_texto.encode('latin-1')+" [HTML]", "url": "http://www.instapaper.com/text?u=" + url_href.group(1).encode('latin-1') } )
                     titulos[web_fuente+" - <a href='"+web_url+"'>e</a>"].append( { "titulo": etiqueta_texto.encode('utf-8')+" [HTML]", "url": "http://www.instapaper.com/text?u=" + url_href.group(1).encode('utf-8') } )
                 elif extension_url=="PDF":
-                    #titulos[web_fuente+" - <a href='"+web_url+"'>e</a>"].append( { "titulo": etiqueta_texto.encode('latin-1')+" [PDF]", "url": url_href.group(1).encode('latin-1') } )
                     titulos[web_fuente+" - <a href='"+web_url+"'>e</a>"].append( { "titulo": etiqueta_texto.encode('utf-8')+" [PDF]", "url": url_href.group(1).encode('utf-8') } )
                 else:
-                    #titulos[web_fuente+" - <a href='"+web_url+"'>e</a>"].append( { "titulo": etiqueta_texto.encode('latin-1')+" [URL]", "url": url_href.group(1).encode('latin-1') } )
                     titulos[web_fuente+" - <a href='"+web_url+"'>e</a>"].append( { "titulo": etiqueta_texto.encode('utf-8')+" [URL]", "url": url_href.group(1).encode('utf-8') } )
 
     # Y la aleatoria de Wikipedia
@@ -316,8 +312,8 @@ def get_stories(lf):
     titulos["wikiquote aleatoria"].append( {"titulo": "aleatoria [URL]", "url": "http://es.wikiquote.org/wiki/Especial:Aleatoria"} )
 
     set_ultimos(lista_primeros)
-
-    return titulos
+   
+    return titulos       
 
 ###################
 # Crear cuerpo mail
@@ -343,9 +339,8 @@ def crear_cuerpo_mail(tb):
         for i in lista_titulos_fuente:
             dict_enlace = i
             li = Tag(cuerpo_mail, "li")
-            #li.append(dict_enlace['titulo'].decode('latin-1')+" - <a href='"+dict_enlace['url'].decode('latin-1')+"'>link</a>")
             li.append(dict_enlace['titulo'].decode('utf-8')+" - <a href='"+dict_enlace['url'].decode('utf-8')+"'>link</a>")
-            cuerpo_mail.append(li)
+	    cuerpo_mail.append(li)
 
     return str(cuerpo_mail)
 
@@ -359,10 +354,9 @@ def send_mail(tb):
     dia = now.strftime("%A")
     hoy = dias[dia]+" "+now.strftime("%d/%m/%Y")
 
-
+    
     subject = 'Resumen noticias ' + hoy
     #subject = 'Una al dia (o mas), ' + hoy
-    #mail_to = "mail.to@gmail.com"
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = subject

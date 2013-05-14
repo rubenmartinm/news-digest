@@ -1,1 +1,1 @@
-#fuente;titulo
+#fuente%_%titulo
